@@ -1,0 +1,17 @@
+---
+- name: Dofiles Config
+  hosts: localhost
+  connection: local
+  become: no
+  vars:
+    user: "{{ ansible_env['USER'] }}"
+    zsh_config: "/home/{{ user }}/.zshrc"
+    tmux_config: "/home/{{ user }}/.tmux.conf"
+    nvim_config: "/home/{{ user }}/.config/nvim"
+    i3_config: "/home/{{ user }}/.config/i3"
+  roles:
+    - zsh
+    - tmux
+    - nvim
+    - i3
+

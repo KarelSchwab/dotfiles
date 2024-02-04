@@ -1,0 +1,80 @@
+---
+- name: Install packages
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl
+  tags:
+    - zsh
+
+- name: Install zsh
+  become: true
+  apt:
+    name: zsh
+    state: present
+  tags:
+    - zsh
+
+- name: Check if .zshrc exists
+  ansible.builtin.stat:
+    path: "{{ zsh_config }}"
+  register: zshrc_check
+  ignore_errors: true
+  tags:
+    - zsh
+
+- name: Create zsh config symbolic link
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/roles/zsh/files/.zshrc"
+    dest: "{{ zsh_config }}"
+    state: link
+  when: not zshrc_check.stat.exists
+  tags:
+    - zsh
+
+- name: Check if Oh my zsh is installed
+  ansible.builtin.stat:
+    path: "/home/{{ user }}/.oh-my-zsh"
+  register: oh_my_zsh_installed
+  ignore_errors: true
+  tags:
+    - zsh
+
+- name: Download "Oh my zsh"
+  ansible.builtin.shell:
+    cmd: sh -c "$(curl -fsSL https://install.ohmyz.sh)"
+  when: not oh_my_zsh_installed.stat.exists
+  tags:
+    - zsh
+
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: /home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+  tags:
+    - zsh
+
+- name: Install zsh-autosuggestions
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: /home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  tags:
+    - zsh
+
+- name: Install zsh-nvm
+  ansible.builtin.git:
+    repo: https://github.com/lukechilds/zsh-nvm.git
+    dest: /home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-nvm
+  tags:
+    - zsh
+
+- name: Set default shell to zsh
+  become: true
+  user:
+    name: "{{ user }}"
+    shell: /usr/bin/zsh
+  tags:
+    - zsh
+

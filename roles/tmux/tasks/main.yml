@@ -1,0 +1,38 @@
+---
+- name: Install packages
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - tmux
+    - xclip
+    - xsel
+    - fzf
+  tags:
+    - tmux
+
+- name: Check if Tmux config exists
+  ansible.builtin.stat:
+    path: "{{ tmux_config }}"
+  register: tmux_config_check
+  ignore_errors: true
+  tags:
+    - tmux
+
+- name: Create Neovim config symbolic link
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/roles/tmux/files/.tmux.conf"
+    dest: "{{ tmux_config }}"
+    state: link
+  when: not tmux_config_check.stat.exists
+  tags:
+    - tmux
+
+- name: Install TPM
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: /home/{{ user }}/.tmux/plugins/tpm
+  tags:
+    - tmux
+

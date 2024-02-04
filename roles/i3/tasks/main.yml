@@ -1,0 +1,38 @@
+---
+- name: Install packages for i3
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - feh
+    - lxappearance 
+    - notify-osd 
+    - playerctl
+    - i3
+  tags:
+    - i3
+
+- name: Check if i3 config exists
+  ansible.builtin.stat:
+    path: "{{ i3_config }}"
+  register: i3_config_check
+  ignore_errors: true
+  tags:
+    - i3
+
+- name: Create i3 config symbolic link
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/roles/i3/files/i3"
+    dest: "{{ i3_config }}"
+    state: link
+  when: not i3_config_check.stat.exists
+  tags:
+    - i3
+
+- name: Install i3-volume
+  ansible.builtin.git:
+    repo: https://github.com/hastinbe/i3-volume.git
+    dest: "{{ i3_config }}/i3-volume"
+  tags:
+    - i3

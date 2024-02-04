@@ -1,0 +1,68 @@
+#!/bin/bash
+
+LOG_FILE="dotfiles.log"
+
+function _task() {
+    printf "${1}..."
+}
+
+function _task_done() {
+    printf "[✓]\n"
+}
+
+function _cmd() {
+    if [[ ! -f ${LOG_FILE} ]]; then
+        touch ${LOG_FILE}
+    fi
+
+    > ${LOG_FILE}
+
+    if eval $1 1> /dev/null 2> ${LOG_FILE}; then
+        return 0
+    fi
+
+    while read line; do
+        printf "    ${line}\n"
+    done < ${LOG_FILE}
+
+    rm ${LOG_FILE}
+
+    exit 1
+}
+
+
+set -e
+
+# Update package list
+_task "Updating package list"
+# _cmd "sudo apt update"
+_task_done
+
+# Git installation
+_task "Installing git"
+if ! dpkg -s git > /dev/null 2>&1; then
+    sudo apt install -y git
+fi
+_task_done
+
+# Python installation
+_task "Installing python3"
+if ! dpkg -s python3 python3-pip python3-venv > /dev/null 2>&1; then
+    sudo apt install -y python3 python3-pip python3-venv
+fi
+_task_done
+
+# Ansible installation
+_task "Installing ansible"
+if ! dpkg -s ansible > /dev/null 2>&1; then
+    sudo apt install -y software-properties-common
+    sudo apt-add-repository --yes --update ppa:ansible/ansible
+    sudo apt install -y ansible
+fi
+_task_done
+
+_task "Running playbooks"; _task_done
+
+ansible-playbook main.yml
+
+
