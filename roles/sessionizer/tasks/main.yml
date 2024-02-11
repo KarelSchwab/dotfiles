@@ -1,0 +1,27 @@
+---
+- name: Install packages for sessionizer
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ item  }}"
+    state: present
+  with_items:
+    - fzf
+  tags: sessionizer
+
+- name: Check if sessionizer link exists
+  ansible.builtin.stat:
+    path: "{{ sessionizer_script }}"
+  register: sessionizer_script_check
+  ignore_errors: true
+  tags:
+    - sessionizer
+
+- name: Create sessionizer symbloic link
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/roles/sessionizer/files/tmux-sessionizer"
+    dest: "{{ sessionizer_script }}"
+    state: link
+  when: not sessionizer_script_check.stat.exists
+  tags:
+    - sessionizer
+
