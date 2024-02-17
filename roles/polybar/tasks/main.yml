@@ -1,0 +1,40 @@
+---
+- name: Install packages for polybar
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - polybar
+  tags:
+    - polybar
+    - i3
+
+- name: Check if polybar config exists
+  ansible.builtin.stat:
+    path: "{{ polybar_config }}"
+  register: polybar_config_check
+  ignore_errors: true
+  tags:
+    - polybar
+    - i3
+
+- name: Remove polybar config if existing
+  ansible.builtin.file:
+    path: "{{ polybar_config }}"
+    state: absent
+    force: true
+  when: polybar_config_check.stat.exists
+  tags:
+    - polybar
+    - i3
+
+- name: Create polybar config symbolic link
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/roles/polybar/files/polybar"
+    dest: "{{ polybar_config }}"
+    state: link
+  tags:
+    - polybar
+    - i3
+

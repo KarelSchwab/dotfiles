@@ -20,12 +20,20 @@
   tags:
     - tmux
 
+- name: Remove tmux config if existing
+  ansible.builtin.file:
+    path: "{{ tmux_config }}"
+    state: absent
+    force: true
+  when: tmux_config_check.stat.exists
+  tags:
+    - tmux
+
 - name: Create Neovim config symbolic link
   ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/tmux/files/.tmux.conf"
     dest: "{{ tmux_config }}"
     state: link
-  when: not tmux_config_check.stat.exists
   tags:
     - tmux
 

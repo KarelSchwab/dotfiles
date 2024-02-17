@@ -9,6 +9,7 @@
     tmux_config: "/home/{{ user }}/.tmux.conf"
     nvim_config: "/home/{{ user }}/.config/nvim"
     i3_config: "/home/{{ user }}/.config/i3"
+    polybar_config: "/home/{{ user }}/.config/polybar"
     sessionizer_script: "/home/{{ user }}/bin/s"
   roles:
     - zsh
@@ -16,4 +17,5 @@
     - nvim
     - i3
     - sessionizer
+    - polybar
 

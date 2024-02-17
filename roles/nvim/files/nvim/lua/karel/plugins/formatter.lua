@@ -96,8 +96,8 @@ return {
                         -- luafmt
                         function()
                             return {
-                                exe = "luafmt",
-                                args = {"--indent-count", 4, "--stdin"},
+                                exe = "lua-format",
+                                args = {"--indent-width", 4},
                                 stdin = true
                             }
                         end

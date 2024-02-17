@@ -8,7 +8,14 @@
     - fzf
   tags: sessionizer
 
-- name: Check if sessionizer link exists
+- name: Create $HOME/bin for sessionizer
+  ansible.builtin.file:
+    path: "/home/karel/bin"
+    state: directory
+  tags:
+    - sessionizer
+
+- name: Check if sessionizer script link exists
   ansible.builtin.stat:
     path: "{{ sessionizer_script }}"
   register: sessionizer_script_check
@@ -16,12 +23,20 @@
   tags:
     - sessionizer
 
-- name: Create sessionizer symbloic link
+- name: Remove sessionizer scipt if existing
+  ansible.builtin.file:
+    path: "{{ sessionizer_script }}"
+    state: absent
+    force: true
+  when: sessionizer_script_check.stat.exists
+  tags:
+    - sessionizer
+
+- name: Create sessionizer symbolic link
   ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/sessionizer/files/tmux-sessionizer"
     dest: "{{ sessionizer_script }}"
     state: link
-  when: not sessionizer_script_check.stat.exists
   tags:
     - sessionizer
 

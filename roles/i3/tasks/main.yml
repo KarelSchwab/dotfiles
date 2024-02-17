@@ -21,12 +21,20 @@
   tags:
     - i3
 
+- name: Remove i3 config if existing
+  ansible.builtin.file:
+    path: "{{ i3_config }}"
+    state: absent
+    force: true
+  when: i3_config_check.stat.exists
+  tags:
+    - i3
+
 - name: Create i3 config symbolic link
   ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/i3/files/i3"
     dest: "{{ i3_config }}"
     state: link
-  when: not i3_config_check.stat.exists
   tags:
     - i3
 

@@ -25,12 +25,20 @@
   tags:
     - zsh
 
+- name: Remove zsh config if existing
+  ansible.builtin.file:
+    path: "{{ zsh_config }}"
+    state: absent
+    force: true
+  when: zshrc_check.stat.exists
+  tags:
+    - zsh
+
 - name: Create zsh config symbolic link
   ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/zsh/files/.zshrc"
     dest: "{{ zsh_config }}"
     state: link
-  when: not zshrc_check.stat.exists
   tags:
     - zsh
 

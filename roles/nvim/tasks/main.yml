@@ -45,12 +45,20 @@
   tags:
     - nvim
 
+- name: Remove nvim config if existing
+  ansible.builtin.file:
+    path: "{{ nvim_config }}"
+    state: absent
+    force: true
+  when: nvim_config_check.stat.exists
+  tags:
+    - nvim
+
 - name: Create Neovim config symbolic link
   ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/nvim/files/nvim"
     dest: "{{ nvim_config }}"
     state: link
-  when: not nvim_config_check.stat.exists
   tags:
     - nvim
 
