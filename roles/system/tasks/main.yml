@@ -1,0 +1,34 @@
+---
+- name: Update system
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: full
+    autoremove: true
+    autoclean: true
+  become: true
+  tags:
+    - system
+
+- name: Install misc packages
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - git
+      - curl
+      - wget
+      - jq
+      - shellcheck
+      - fzf
+    state: latest
+  tags:
+    - system
+
+- name: Install GUI packages
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - vlc
+    state: latest
+  tags:
+    - system
+    - gui

@@ -1,0 +1,15 @@
+---
+- name: Dot files
+  hosts: localhost
+  gather_facts: true
+  connection: local
+  roles:
+    - system
+    - git
+    - tmux
+    - zsh
+    - nvim
+    - node
+    - python
+    - docker
+    - brave

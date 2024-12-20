@@ -1,0 +1,42 @@
+---
+- name: Install Brave dependencies
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - git
+      - curl
+    state: latest
+  tags:
+    - brave
+    - gui
+
+- name: Download Brave GPG key
+  become: true
+  ansible.builtin.apt_key:
+    url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    keyring: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+    state: present
+  tags:
+    - brave
+    - gui
+
+- name: Add Brave APT repo
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main
+    mode: "0644"
+  tags:
+    - brave
+    - gui
+
+- name: Install Brave Browser
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - brave-browser
+    state: latest
+    update_cache: true
+  tags:
+    - brave
+    - gui
+

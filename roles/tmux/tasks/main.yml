@@ -1,0 +1,43 @@
+---
+- name: Install Tmux
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - tmux
+      - xclip
+      - xsel
+      - git
+    state: latest
+  tags:
+    - tmux
+
+- name: Create Tmux plugins directory if it does not exist
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.tmux/plugins"
+    state: directory
+    mode: '0755'
+  tags:
+    - tmux
+
+- name: Clone TPM
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ ansible_env.HOME}}/.tmux/plugins/tpm"
+  tags:
+    - tmux
+
+- name: Create tmux config directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/tmux"
+    state: directory
+    mode: "0755"
+  tags:
+    - tmux
+
+- name: Copy tmux.conf
+  ansible.builtin.template:
+    src: templates/tmux.conf
+    dest: "{{ ansible_env.HOME }}/.config/tmux/tmux.conf"
+    mode: "0644"
+  tags:
+    - tmux
