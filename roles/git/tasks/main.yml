@@ -8,23 +8,13 @@
   tags:
     - git
 
-- name: Set personal email in .gitconfig
+- name: Set email in .gitconfig
   git_config:
     name: user.email
     scope: global
-    value: "{{ personal_email }}"
+    value: "{{ email }}"
   tags:
   - git
-  - personal
-
-- name: Set work email in .gitconfig
-  git_config:
-    name: user.email
-    scope: global
-    value: "{{ work_email }}"
-  tags:
-  - git
-  - work
 
 - name: Set name in .gitconfig
   git_config:

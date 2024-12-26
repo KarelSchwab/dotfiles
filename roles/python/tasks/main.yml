@@ -34,7 +34,6 @@
   ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/.zshrc"
   register: zshrc
-  when: shell == "zsh"
   tags:
     - python
 
@@ -47,6 +46,6 @@
     - 'export PYENV_ROOT="$HOME/.pyenv"'
     - '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"'
     - 'eval "$(pyenv init -)"'
-  when: shell == "zsh" and zshrc.stat.exists
+  when: zshrc.stat.exists
   tags:
     - python

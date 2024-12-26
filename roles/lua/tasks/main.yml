@@ -1,0 +1,10 @@
+---
+- name: Install Lua and LuaRocks
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - lua5.3
+      - luarocks
+    state: latest
+  tags:
+    - lua
