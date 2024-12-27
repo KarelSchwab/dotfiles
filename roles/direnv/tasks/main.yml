@@ -1,0 +1,27 @@
+---
+- name: Install Direnv
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - direnv
+    state: latest
+  tags:
+    - direnv
+
+- name: Check if .zshrc exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+  register: zshrc
+  tags:
+    - direnv
+
+- name: Update .zshrc
+  ansible.builtin.lineinfile:
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - 'eval "$(direnv hook zsh)"'
+  when: zshrc.stat.exists
+  tags:
+    - direnv

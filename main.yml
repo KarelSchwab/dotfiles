@@ -12,4 +12,5 @@
     - node
     - python
     - lua
+    - direnv
     - docker
