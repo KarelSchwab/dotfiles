@@ -31,13 +31,3 @@
   tags:
       - system
 
-- name: Ensure .zshrc contains local bin directory
-  ansible.builtin.lineinfile:
-    dest: "{{ ansible_env.HOME }}/.zshrc"
-    line: "{{ item }}"
-    state: present
-  loop:
-    - 'export PATH="$PATH:$HOME/.local/bin"'
-  tags:
-      - system
-
