@@ -19,6 +19,7 @@
       - jq
       - shellcheck
       - fzf
+      - universal-ctags
     state: latest
   tags:
     - system
