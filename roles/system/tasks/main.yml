@@ -32,3 +32,13 @@
   tags:
       - system
 
+- name: Copy sessionizer to bin directory
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.local/bin/s"
+    mode: "0755"
+  loop:
+    - scripts/sessionizer.sh
+  tags:
+      - system
+      - scripts
