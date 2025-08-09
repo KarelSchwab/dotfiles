@@ -1,35 +1,4 @@
 ---
-- name: Install pyenv dependencies
-  become: true
-  ansible.builtin.apt:
-    pkg:
-      - git
-      - curl
-      - build-essential
-      - libssl-dev
-      - zlib1g-dev
-      - libbz2-dev
-      - libreadline-dev
-      - libsqlite3-dev
-      - libncursesw5-dev
-      - xz-utils
-      - tk-dev
-      - libxml2-dev
-      - libxmlsec1-dev
-      - libffi-dev
-      - liblzma-dev
-    state: latest
-  tags:
-    - python
-
-- name: Install pyenv
-  ansible.builtin.shell: >
-    curl https://pyenv.run | bash
-  args:
-    creates: "{{ ansible_env.HOME }}/.pyenv"
-  tags:
-    - python
-
 - name: Install uv (package manager for Python)
   ansible.builtin.shell: >
     curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -51,9 +20,6 @@
     line: "{{ item }}"
     state: present
   loop:
-    - 'export PYENV_ROOT="$HOME/.pyenv"'
-    - '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"'
-    - 'eval "$(pyenv init -)"'
     - 'eval "$(uv generate-shell-completion zsh)"'
   when: zshrc.stat.exists
   tags:

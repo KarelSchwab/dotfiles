@@ -39,13 +39,6 @@
   tags:
     - zsh
 
-- name: Install zsh-pyenv plugin
-  ansible.builtin.git:
-    repo: https://github.com/mattberther/zsh-pyenv
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-pyenv"
-  tags:
-    - zsh
-
 - name: Copy .zshrc
   ansible.builtin.template:
     src: templates/zshrc
