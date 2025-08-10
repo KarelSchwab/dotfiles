@@ -31,16 +31,16 @@
 
 - name: Download nvim appimage
   ansible.builtin.get_url:
-    url: https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-arm64.appimage
+    url: https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.appimage
     dest: "{{ ansible_env.HOME }}/.local/bin"
     mode: '0755'
   tags:
     - nvim
 
 - name: Rename nvim appimage
-  ansible.builtin.command: mv "{{ ansible_env.HOME }}/.local/bin/nvim.appimage" "{{ ansible_env.HOME }}/.local/bin/nvim"
+  ansible.builtin.command: mv "{{ ansible_env.HOME }}/.local/bin/nvim-linux-x86_64.appimage" "{{ ansible_env.HOME }}/.local/bin/nvim"
   args:
-    removes: "{{ ansible_env.HOME }}/.local/bin/nvim.appimage"
+    removes: "{{ ansible_env.HOME }}/.local/bin/nvim-linux-x86_64.appimage"
     creates: "{{ ansible_env.HOME }}/.local/bin/nvim"
   tags:
     - nvim
