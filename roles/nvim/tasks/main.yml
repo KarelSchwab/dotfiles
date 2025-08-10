@@ -24,40 +24,24 @@
 
 - name: Remove existing Neovim appimage
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.local/bin/nvim.appimage"
-    state: absent
-  tags:
-    - nvim
-
-- name: Remove existing extracted Neovim appimage
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.local/bin/squashfs-root"
+    path: "{{ ansible_env.HOME }}/.local/bin/nvim"
     state: absent
   tags:
     - nvim
 
 - name: Download nvim appimage
   ansible.builtin.get_url:
-    url: https://github.com/neovim/neovim/releases/download/v0.11.1/nvim-linux-x86_64.appimage
+    url: https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-arm64.appimage
     dest: "{{ ansible_env.HOME }}/.local/bin"
     mode: '0755'
   tags:
     - nvim
 
-- name: Extract Neovim AppImage
-  ansible.builtin.command:
-    cmd: "./nvim-linux-x86_64.appimage --appimage-extract"
-    chdir: "{{ ansible_env.HOME }}/.local/bin"
+- name: Rename nvim appimage
+  ansible.builtin.command: mv "{{ ansible_env.HOME }}/.local/bin/nvim.appimage" "{{ ansible_env.HOME }}/.local/bin/nvim"
   args:
-    creates: "{{ ansible_env.HOME }}/.local/bin/squashfs-root"
-  tags:
-    - nvim
-
-- name: Create nvim symlink
-  ansible.builtin.file:
-    src: "{{ ansible_env.HOME }}/.local/bin/squashfs-root/usr/bin/nvim"
-    dest: "{{ ansible_env.HOME }}/.local/bin/nvim"
-    state: link
+    removes: "{{ ansible_env.HOME }}/.local/bin/nvim.appimage"
+    creates: "{{ ansible_env.HOME }}/.local/bin/nvim"
   tags:
     - nvim
 
