@@ -1,7 +1,7 @@
 ---
 - name: Install Direnv
   become: true
-  ansible.builtin.apt:
+  ansible.builtin.package:
     pkg:
       - direnv
     state: latest

@@ -1,7 +1,7 @@
 ---
 - name: Install nvm dependencies
   become: true
-  ansible.builtin.apt:
+  ansible.builtin.package:
     pkg:
       - git
       - curl

@@ -1,7 +1,7 @@
 ---
 - name: Install nvim packages
   become: true
-  ansible.builtin.apt:
+  ansible.builtin.package:
     pkg:
       - git
       - ripgrep

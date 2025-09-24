@@ -1,7 +1,7 @@
 ---
 - name: Install Git
   become: true
-  ansible.builtin.apt:
+  ansible.builtin.package:
     pkg:
       - git
     state: latest
