@@ -7,20 +7,20 @@
   tags:
     - python
 
-- name: Check if .zshrc exists
+- name: Check if .bashrc exists
   ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-  register: zshrc
+    path: "{{ ansible_env.HOME }}/.bashrc"
+  register: bashrc
   tags:
     - python
 
-- name: Update .zshrc
+- name: Update .bashrc
   ansible.builtin.lineinfile:
-    dest: "{{ ansible_env.HOME }}/.zshrc"
+    dest: "{{ ansible_env.HOME }}/.bashrc"
     line: "{{ item }}"
     state: present
   loop:
-    - 'eval "$(uv generate-shell-completion zsh)"'
-  when: zshrc.stat.exists
+    - 'eval "$(uv generate-shell-completion bash)"'
+  when: bashrc.stat.exists
   tags:
     - python

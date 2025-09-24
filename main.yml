@@ -7,7 +7,7 @@
    - system
    - git
    - tmux
-   - zsh
+   - bash
    - nvim
    - node
    - python
