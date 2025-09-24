@@ -15,14 +15,14 @@
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.tmux/plugins"
     state: directory
-    mode: '0755'
+    mode: "0755"
   tags:
     - tmux
 
 - name: Clone TPM
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
-    dest: "{{ ansible_env.HOME}}/.tmux/plugins/tpm"
+    dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
   tags:
     - tmux
 

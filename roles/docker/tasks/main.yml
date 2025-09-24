@@ -10,12 +10,12 @@
   tags:
     - docker
 
-- name: Create apt keyrings folder 
+- name: Create apt keyrings folder
   become: true
   ansible.builtin.file:
     path: "/etc/apt/keyrings"
     state: directory
-    mode: '0755'
+    mode: "0755"
   tags:
     - docker
 
@@ -39,7 +39,8 @@
 
 - name: Add Docker repository
   ansible.builtin.apt_repository:
-    repo: deb [arch={{ dpkg_architecture.stdout }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+    repo: deb [arch={{ dpkg_architecture.stdout }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{
+      ansible_distribution_release }} stable
     mode: "0644"
   become: true
   tags:

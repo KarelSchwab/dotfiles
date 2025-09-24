@@ -49,7 +49,7 @@
 
 - name: Set default shell to zsh
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ user }}"
     shell: /usr/bin/zsh
   tags:
@@ -63,4 +63,4 @@
   loop:
     - 'export PATH="$PATH:$HOME/.local/bin"'
   tags:
-      - system
+    - system
