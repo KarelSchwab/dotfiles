@@ -1,0 +1,38 @@
+---
+- name: Install bash
+  become: true
+  ansible.builtin.package:
+    pkg:
+      - bash
+      - fzf
+      - bash-completion
+    state: latest
+  tags:
+    - bash
+
+- name: Copy .bashrc
+  ansible.builtin.template:
+    src: templates/bashrc
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    mode: "0644"
+  tags:
+    - bash
+
+- name: Set default shell to bash
+  become: true
+  ansible.builtin.user:
+    name: "{{ user }}"
+    shell: /bin/bash
+  tags:
+    - bash
+
+- name: Ensure .bashrc contains local bin directory
+  ansible.builtin.lineinfile:
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - 'export PATH="$PATH:$HOME/.local/bin"'
+  tags:
+    - bash
+    - system

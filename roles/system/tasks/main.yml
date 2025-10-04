@@ -1,17 +1,21 @@
 ---
 - name: Update system
-  ansible.builtin.apt:
-    update_cache: true
-    upgrade: full
-    autoremove: true
-    autoclean: true
   become: true
+  ansible.builtin.package:
+    update_cache: true
+  when: ansible_facts.pkg_mgr == 'apt'
   tags:
     - system
 
+- name: Update pacman cache
+  become: true
+  community.general.pacman:
+    update_cache: true
+  when: ansible_facts.pkg_mgr == 'pacman'
+
 - name: Install misc packages
   become: true
-  ansible.builtin.apt:
+  ansible.builtin.package:
     pkg:
       - git
       - curl

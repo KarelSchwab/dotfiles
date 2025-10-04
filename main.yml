@@ -4,13 +4,16 @@
   gather_facts: true
   connection: local
   roles:
-   - system
-   - git
-   - tmux
-   - zsh
-   - nvim
-   - node
-   - python
-   - lua
-   - direnv
-   - docker
+    - system
+    - git
+    - tmux
+    - bash
+    - starship
+    - nvim
+    - node
+    - python
+    - lua
+    - direnv
+    - docker
+    - omarchy
+    - projects
