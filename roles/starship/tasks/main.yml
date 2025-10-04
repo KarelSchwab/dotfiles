@@ -1,0 +1,38 @@
+---
+- name: Install starship (APT)
+  become: true
+  ansible.builtin.shell: >
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+  args:
+    creates: "/usr/bin/starship"
+  when: ansible_facts.pkg_mgr == 'apt'
+  tags:
+    - starship
+
+- name: Install starship (Pacman)
+  become: true
+  ansible.builtin.package:
+    pkg:
+      - starship
+    state: latest
+  when: ansible_facts.pkg_mgr == 'pacman'
+  tags:
+    - starship
+
+- name: Check if .bashrc exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+  register: bashrc
+  tags:
+    - starship
+
+- name: Update .bashrc
+  ansible.builtin.lineinfile:
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - 'eval "$(starship init bash)"'
+  when: bashrc.stat.exists
+  tags:
+    - starship

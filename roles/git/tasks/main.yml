@@ -9,7 +9,7 @@
     - git
 
 - name: Set email in .gitconfig
-  git_config:
+  community.general.git_config:
     name: user.email
     scope: global
     value: "{{ email }}"
@@ -17,7 +17,7 @@
     - git
 
 - name: Set name in .gitconfig
-  git_config:
+  community.general.git_config:
     name: user.name
     scope: global
     value: "{{ first_name }} {{ last_name }}"
@@ -25,7 +25,7 @@
     - git
 
 - name: Set default branch name in .gitconfig
-  git_config:
+  community.general.git_config:
     name: init.defaultBranch
     scope: global
     value: "main"
@@ -33,7 +33,7 @@
     - git
 
 - name: Set default editor to nvim in .gitconfig
-  git_config:
+  community.general.git_config:
     name: core.editor
     scope: global
     value: "{{ default_editor }}"

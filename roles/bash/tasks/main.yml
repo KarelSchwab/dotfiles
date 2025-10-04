@@ -5,6 +5,7 @@
     pkg:
       - bash
       - fzf
+      - bash-completion
     state: latest
   tags:
     - bash

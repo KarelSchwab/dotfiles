@@ -3,9 +3,6 @@
   become: true
   ansible.builtin.package:
     update_cache: true
-    upgrade: full
-    autoremove: true
-    autoclean: true
   when: ansible_facts.pkg_mgr == 'apt'
   tags:
     - system
