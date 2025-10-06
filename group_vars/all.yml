@@ -7,4 +7,6 @@ default_editor: nvim
 development_folder: "{{ ansible_env.HOME }}/Development"
 
 # Controls whether the Omarchy templates should be included
-omarchy: true
+omarchy: false
+karelschwab: true
+planner: true

@@ -1,10 +1,17 @@
 ---
-- name: Install caddy
-  become: true
-  ansible.builtin.package:
-    pkg:
-      - caddy
-    state: latest
+- name: Check if caddy dev server exists
+  ansible.builtin.stat:
+    path: "{{ development_folder }}/caddy_server_dev"
+  register: caddy_server_dev
+  tags:
+    - projects
+
+- name: Clone caddy_server_dev
+  ansible.builtin.git:
+    repo: git@github.com:KarelSchwab/caddy_server_dev.git
+    dest: "{{ development_folder }}/caddy_server_dev"
+    key_file: "{{ ansible_env.HOME }}/.ssh/id_ed25519_personal"
+  when: not caddy_server_dev.stat.exists
   tags:
     - projects
 
@@ -19,8 +26,8 @@
   ansible.builtin.git:
     repo: git@github.com:KarelSchwab/karelschwab.com.git
     dest: "{{ development_folder }}/karelschwab.com"
-    key_file: "{{ ansible_env.HOME }}.ssh/id_ed25519"
-  when: not karelschwab.stat.exists
+    key_file: "{{ ansible_env.HOME }}/.ssh/id_ed25519_personal"
+  when: not karelschwab.stat.exists and (karelschwab | default(false)) | bool
   tags:
     - projects
 
@@ -35,7 +42,7 @@
   ansible.builtin.git:
     repo: git@github.com:KarelSchwab/planner.git
     dest: "{{ development_folder }}/planner"
-    key_file: "{{ ansible_env.HOME }}.ssh/id_ed25519"
-  when: not planner.stat.exists
+    key_file: "{{ ansible_env.HOME }}/.ssh/id_ed25519_personal"
+  when: not planner.stat.exists and (planner | default(false)) | bool
   tags:
     - projects
