@@ -5,37 +5,32 @@
     pkg:
       - git
     state: latest
-  tags:
-    - git
+  tags: [git]
 
 - name: Set email in .gitconfig
   community.general.git_config:
     name: user.email
     scope: global
     value: "{{ email }}"
-  tags:
-    - git
+  tags: [git]
 
 - name: Set name in .gitconfig
   community.general.git_config:
     name: user.name
     scope: global
     value: "{{ first_name }} {{ last_name }}"
-  tags:
-    - git
+  tags: [git]
 
 - name: Set default branch name in .gitconfig
   community.general.git_config:
     name: init.defaultBranch
     scope: global
     value: "main"
-  tags:
-    - git
+  tags: [git]
 
 - name: Set default editor to nvim in .gitconfig
   community.general.git_config:
     name: core.editor
     scope: global
     value: "{{ default_editor }}"
-  tags:
-    - git
+  tags: [git]

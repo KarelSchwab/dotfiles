@@ -7,8 +7,7 @@
       - curl
       - gnupg
     state: latest
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Create apt keyrings folder
   become: true
@@ -17,8 +16,7 @@
     state: directory
     mode: "0755"
   when: ansible_facts.pkg_mgr == 'apt'
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Download Docker GPG key
   become: true
@@ -27,28 +25,25 @@
     keyring: /etc/apt/keyrings/docker.gpg
     state: present
   when: ansible_facts.pkg_mgr == 'apt'
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Get System Architecture
   ansible.builtin.command: "dpkg --print-architecture"
-  register: dpkg_architecture
+  register: docker_dpkg_architecture
   changed_when: false
   failed_when: false
   check_mode: false
   when: ansible_facts.pkg_mgr == 'apt'
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Add Docker repository
   ansible.builtin.apt_repository:
-    repo: deb [arch={{ dpkg_architecture.stdout }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{
+    repo: deb [arch={{ docker_dpkg_architecture.stdout }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{
       ansible_distribution_release }} stable
     mode: "0644"
   become: true
   when: ansible_facts.pkg_mgr == 'apt'
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Install Docker Engine (APT)
   become: true
@@ -61,8 +56,7 @@
       - docker-compose-plugin
     state: latest
   when: ansible_facts.pkg_mgr == 'apt'
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Install Docker Engine
   become: true
@@ -73,8 +67,7 @@
       - docker-buildx
     state: latest
   when: ansible_facts.pkg_mgr == 'pacman'
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Enable Docker service
   become: true
@@ -82,8 +75,7 @@
     enabled: true
     name: docker
     state: started
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Add user to Docker group
   become: true
@@ -91,13 +83,11 @@
     append: true
     groups: docker
     name: "{{ user }}"
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Restart Docker
   become: true
   ansible.builtin.service:
     name: docker
     state: restarted
-  tags:
-    - docker
+  tags: [docker]

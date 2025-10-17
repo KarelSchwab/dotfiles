@@ -7,8 +7,7 @@
       - luarocks
     state: latest
   when: ansible_facts.pkg_mgr == 'apt'
-  tags:
-    - lua
+  tags: [lua]
 
 - name: Install Lua and LuaRocks (Pacman)
   become: true
@@ -18,5 +17,4 @@
       - luarocks
     state: latest
   when: ansible_facts.pkg_mgr == 'pacman'
-  tags:
-    - lua
+  tags: [lua]

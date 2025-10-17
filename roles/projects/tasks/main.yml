@@ -2,47 +2,41 @@
 - name: Check if caddy dev server exists
   ansible.builtin.stat:
     path: "{{ development_folder }}/caddy_server_dev"
-  register: caddy_server_dev
-  tags:
-    - projects
+  register: projects_caddy_server_dev
+  tags: [projects]
 
 - name: Clone caddy_server_dev
   ansible.builtin.git:
     repo: git@github.com:KarelSchwab/caddy_server_dev.git
     dest: "{{ development_folder }}/caddy_server_dev"
     key_file: "{{ ansible_env.HOME }}/.ssh/id_ed25519_personal"
-  when: not caddy_server_dev.stat.exists
-  tags:
-    - projects
+  when: not projects_caddy_server_dev.stat.exists
+  tags: [projects]
 
 - name: Check if karelschwab.com exists
   ansible.builtin.stat:
     path: "{{ development_folder }}/karelschwab.com"
-  register: karelschwab
-  tags:
-    - projects
+  register: projects_karelschwab
+  tags: [projects]
 
 - name: Clone karelschwab.com
   ansible.builtin.git:
     repo: git@github.com:KarelSchwab/karelschwab.com.git
     dest: "{{ development_folder }}/karelschwab.com"
     key_file: "{{ ansible_env.HOME }}/.ssh/id_ed25519_personal"
-  when: not karelschwab.stat.exists and (karelschwab | default(false)) | bool
-  tags:
-    - projects
+  when: not projects_karelschwab.stat.exists and (karelschwab | default(false)) | bool
+  tags: [projects]
 
 - name: Check if planner exists
   ansible.builtin.stat:
     path: "{{ development_folder }}/planner"
-  register: planner
-  tags:
-    - projects
+  register: projects_planner
+  tags: [projects]
 
 - name: Clone planner
   ansible.builtin.git:
     repo: git@github.com:KarelSchwab/planner.git
     dest: "{{ development_folder }}/planner"
     key_file: "{{ ansible_env.HOME }}/.ssh/id_ed25519_personal"
-  when: not planner.stat.exists and (planner | default(false)) | bool
-  tags:
-    - projects
+  when: not projects_planner.stat.exists and (planner | default(false)) | bool
+  tags: [projects]

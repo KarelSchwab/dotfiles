@@ -1,18 +1,22 @@
 ---
-- name: Install uv (package manager for Python)
-  ansible.builtin.shell: >
-    curl -LsSf https://astral.sh/uv/install.sh | sh
+- name: Download uv install script
+  ansible.builtin.get_url:
+    url: https://astral.sh/uv/install.sh
+    dest: /tmp/uv-install.sh
+    mode: "0755"
+  tags: [python]
+
+- name: Run uv install script
+  ansible.builtin.command: /tmp/uv-install.sh
   args:
     creates: "{{ ansible_env.HOME }}/.local/bin/uv"
-  tags:
-    - python
+  tags: [pyhton]
 
 - name: Check if .bashrc exists
   ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/.bashrc"
-  register: bashrc
-  tags:
-    - python
+  register: python_bashrc
+  tags: [python]
 
 - name: Update .bashrc
   ansible.builtin.lineinfile:
@@ -21,6 +25,5 @@
     state: present
   loop:
     - 'eval "$(uv generate-shell-completion bash)"'
-  when: bashrc.stat.exists
-  tags:
-    - python
+  when: python_bashrc.stat.exists
+  tags: [python]
