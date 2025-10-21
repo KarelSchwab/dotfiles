@@ -11,58 +11,50 @@
       - curl
       - unzip
     state: latest
-  tags:
-    - nvim
+  tags: [nvim]
 
 - name: Create local bin directory if it does not exist
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.local/bin"
     state: directory
     mode: "0755"
-  tags:
-    - nvim
+  tags: [nvim]
 
 - name: Remove existing Neovim appimage
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.local/bin/nvim"
     state: absent
-  tags:
-    - nvim
+  tags: [nvim]
 
 - name: Download nvim appimage
   ansible.builtin.get_url:
     url: https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-x86_64.appimage
     dest: "{{ ansible_env.HOME }}/.local/bin"
     mode: "0755"
-  tags:
-    - nvim
+  tags: [nvim]
 
 - name: Rename nvim appimage
   ansible.builtin.command: mv "{{ ansible_env.HOME }}/.local/bin/nvim-linux-x86_64.appimage" "{{ ansible_env.HOME }}/.local/bin/nvim"
   args:
     removes: "{{ ansible_env.HOME }}/.local/bin/nvim-linux-x86_64.appimage"
     creates: "{{ ansible_env.HOME }}/.local/bin/nvim"
-  tags:
-    - nvim
+  tags: [nvim]
 
 - name: Check if nvim config exists
   ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/.config/nvim"
-  register: nvim
-  tags:
-    - nvim
+  register: nvim_nvim
+  tags: [nvim]
 
 - name: Clone nvim configuration if it does not exist
   ansible.builtin.git:
     repo: https://github.com/KarelSchwab/nvim
     dest: "{{ ansible_env.HOME }}/.config/nvim"
-  when: not nvim.stat.exists
-  tags:
-    - nvim
+  when: not nvim_nvim.stat.exists
+  tags: [nvim]
 
 - name: Cleanup Neovim appimage
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.local/bin/nvim.appimage"
     state: absent
-  tags:
-    - nvim
+  tags: [nvim]

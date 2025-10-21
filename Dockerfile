@@ -26,7 +26,7 @@ WORKDIR /home/$USER
 # Switch to the new user by default
 USER $USER
 
-COPY . .
+COPY --chown=${GROUP}:${USER} . .
 
 # CMD []
 #

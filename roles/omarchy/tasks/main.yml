@@ -5,5 +5,4 @@
     dest: "{{ ansible_env.HOME }}/.config/hypr/bindings.conf"
     mode: "0644"
   when: (omarchy | default(false)) | bool
-  tags:
-    - omarchy
+  tags: [omarchy]

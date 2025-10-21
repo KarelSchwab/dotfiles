@@ -4,14 +4,14 @@
   ansible.builtin.package:
     update_cache: true
   when: ansible_facts.pkg_mgr == 'apt'
-  tags:
-    - system
+  tags: [system]
 
 - name: Update pacman cache
   become: true
   community.general.pacman:
     update_cache: true
   when: ansible_facts.pkg_mgr == 'pacman'
+  tags: [system]
 
 - name: Install misc packages
   become: true
@@ -25,16 +25,14 @@
       - fzf
       - universal-ctags
     state: latest
-  tags:
-    - system
+  tags: [system]
 
 - name: Create local bin directory if it does not exist
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.local/bin"
     state: directory
     mode: "0755"
-  tags:
-    - system
+  tags: [system]
 
 - name: Copy sessionizer to bin directory
   ansible.builtin.copy:
@@ -43,6 +41,4 @@
     mode: "0755"
   loop:
     - scripts/sessionizer.sh
-  tags:
-    - system
-    - scripts
+  tags: [system, scripts]
