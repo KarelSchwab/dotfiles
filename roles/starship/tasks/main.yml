@@ -28,3 +28,19 @@
     - 'eval "$(starship init bash)"'
   when: starship_bashrc.stat.exists
   tags: [starship]
+
+- name: Check if .zshrc exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+  register: starship_zshrc
+  tags: [starship]
+
+- name: Update .zshrc
+  ansible.builtin.lineinfile:
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - 'eval "$(starship init zsh)"'
+  when: starship_zshrc.stat.exists
+  tags: [starship]

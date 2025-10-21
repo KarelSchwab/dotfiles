@@ -8,6 +8,7 @@
     - git
     - tmux
     - bash
+    - zsh
     - starship
     - nvim
     - node
