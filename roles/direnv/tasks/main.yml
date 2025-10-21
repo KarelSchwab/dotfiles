@@ -22,19 +22,3 @@
     - 'eval "$(direnv hook bash)"'
   when: direnv_bashrc.stat.exists
   tags: [direnv]
-
-- name: Check if .zshrc exists
-  ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-  register: direnv_zshrc
-  tags: [direnv]
-
-- name: Update .zshrc
-  ansible.builtin.lineinfile:
-    dest: "{{ ansible_env.HOME }}/.zshrc"
-    line: "{{ item }}"
-    state: present
-  loop:
-    - 'eval "$(direnv hook zsh)"'
-  when: direnv_zshrc.stat.exists
-  tags: [direnv]

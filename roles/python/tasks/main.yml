@@ -27,20 +27,3 @@
     - 'eval "$(uv generate-shell-completion bash)"'
   when: python_bashrc.stat.exists
   tags: [python]
-
-- name: Check if .zshrc exists
-  ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-  register: python_zshrc
-  tags: [python]
-
-- name: Update .zshrc
-  ansible.builtin.blockinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-    marker: "# {mark} ANSIBLE: uv"
-    block: |
-      autoload -Uz compinit
-      compinit
-      command -v uv >/dev/null && eval "$(uv generate-shell-completion zsh)"
-  when: python_zshrc.stat.exists
-  tags: [python]

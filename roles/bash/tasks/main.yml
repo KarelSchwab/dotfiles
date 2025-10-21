@@ -40,5 +40,3 @@
       fi
   when: bash_bashrc.stat.exists
   tags: [bash, system]
-
-
