@@ -39,14 +39,15 @@
   register: node_bashrc
   tags: [node]
 
-- name: Update .bashrc
-  ansible.builtin.lineinfile:
-    dest: "{{ ansible_env.HOME }}/.bashrc"
-    line: "{{ item }}"
-    state: present
-  loop:
-    - 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"'
-    - '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+- name: Ensure .bashrc contains nvm stuff
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    create: true
+    marker: "# {mark} ANSIBLE: nvm"
+    insertafter: EOF
+    block: |
+      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   when: node_bashrc.stat.exists
   tags: [node]
 
@@ -56,13 +57,15 @@
   register: node_zshrc
   tags: [node]
 
-- name: Update .zshrc
-  ansible.builtin.lineinfile:
-    dest: "{{ ansible_env.HOME }}/.zshrc"
-    line: "{{ item }}"
-    state: present
-  loop:
-    - 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"'
-    - '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+- name: Ensure .zshrc contains nvm stuff
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    create: true
+    marker: "# {mark} ANSIBLE: nvm"
+    insertafter: EOF
+    block: |
+      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   when: node_zshrc.stat.exists
   tags: [node]
+

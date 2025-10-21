@@ -35,11 +35,12 @@
   tags: [python]
 
 - name: Update .zshrc
-  ansible.builtin.lineinfile:
-    dest: "{{ ansible_env.HOME }}/.zshrc"
-    line: "{{ item }}"
-    state: present
-  loop:
-    - 'eval "$(uv generate-shell-completion zsh)"'
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    marker: "# {mark} ANSIBLE: uv"
+    block: |
+      autoload -Uz compinit
+      compinit
+      command -v uv >/dev/null && eval "$(uv generate-shell-completion zsh)"
   when: python_zshrc.stat.exists
   tags: [python]

@@ -2,11 +2,11 @@
 user: karel
 first_name: Karel
 last_name: Schwab
-email: karels@shareforce.net
+email: 35557567+KarelSchwab@users.noreply.github.com
 default_editor: nvim
 development_folder: "{{ ansible_env.HOME }}/development"
 
 # Controls whether the Omarchy templates should be included
-omarchy: false
+omarchy: true
 karelschwab: true
 planner: true

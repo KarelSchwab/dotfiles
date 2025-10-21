@@ -24,3 +24,21 @@
     - 'export PATH="$PATH:$HOME/.local/bin"'
   when: bash_bashrc.stat.exists
   tags: [bash, system]
+
+- name: Ensure .bashrc contains fzf key bindings
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    marker: "# {mark} ANSIBLE: fzf key bindings"
+    block: |
+      if command -v fzf &> /dev/null; then
+        if [[ -f /usr/share/fzf/key-bindings.bash ]]; then
+            source /usr/share/fzf/key-bindings.bash
+        fi
+        if [[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
+            source /usr/share/doc/fzf/examples/key-bindings.bash
+        fi
+      fi
+  when: bash_bashrc.stat.exists
+  tags: [bash, system]
+
+
