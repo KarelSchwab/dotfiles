@@ -4,7 +4,7 @@
   ansible.builtin.shell: >
     curl -LsSf https://astral.sh/uv/install.sh | sh
   args:
-    creates: "/usr/bin/starship"
+    creates: "/usr/local/bin/starship"
   when: ansible_facts.pkg_mgr == 'apt'
   tags:
     - starship

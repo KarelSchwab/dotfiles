@@ -1,6 +1,6 @@
 #!/bin/bash
 
-session=$(find ~/.config ~/Development -mindepth 1 -maxdepth 1 -type d | fzf)
+session=$(find ~/.config ~/development -mindepth 1 -maxdepth 1 -type d | fzf)
 
 session_name=$(basename "$session" | tr . _)
 
