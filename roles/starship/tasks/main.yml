@@ -6,7 +6,7 @@
     mode: "0755"
   tags: [starship]
 
-- name: Run Starship install script (non-interactive)
+- name: Run Starship install script
   become: true
   ansible.builtin.command: /tmp/starship-install.sh -y
   args:
