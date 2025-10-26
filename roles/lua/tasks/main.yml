@@ -1,20 +1,10 @@
 ---
-- name: Install Lua and LuaRocks (APT)
+- name: Install Lua and LuaRocks
   become: true
   ansible.builtin.package:
     pkg:
       - lua5.3
       - luarocks
+    update_cache: true
     state: latest
-  when: ansible_facts.pkg_mgr == 'apt'
-  tags: [lua]
-
-- name: Install Lua and LuaRocks (Pacman)
-  become: true
-  ansible.builtin.package:
-    pkg:
-      - lua
-      - luarocks
-    state: latest
-  when: ansible_facts.pkg_mgr == 'pacman'
   tags: [lua]
