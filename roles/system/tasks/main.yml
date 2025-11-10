@@ -1,18 +1,4 @@
 ---
-- name: Update system
-  become: true
-  ansible.builtin.package:
-    update_cache: true
-  when: ansible_facts.pkg_mgr == 'apt'
-  tags: [system]
-
-- name: Update pacman cache
-  become: true
-  community.general.pacman:
-    update_cache: true
-  when: ansible_facts.pkg_mgr == 'pacman'
-  tags: [system]
-
 - name: Install misc packages
   become: true
   ansible.builtin.package:
@@ -24,6 +10,7 @@
       - shellcheck
       - fzf
       - universal-ctags
+    update_cache: true
     state: latest
   tags: [system]
 

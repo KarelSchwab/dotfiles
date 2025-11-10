@@ -15,7 +15,6 @@
     path: "/etc/apt/keyrings"
     state: directory
     mode: "0755"
-  when: ansible_facts.pkg_mgr == 'apt'
   tags: [docker]
 
 - name: Download Docker GPG key
@@ -24,7 +23,6 @@
     url: https://download.docker.com/linux/ubuntu/gpg
     keyring: /etc/apt/keyrings/docker.gpg
     state: present
-  when: ansible_facts.pkg_mgr == 'apt'
   tags: [docker]
 
 - name: Get System Architecture
@@ -33,7 +31,6 @@
   changed_when: false
   failed_when: false
   check_mode: false
-  when: ansible_facts.pkg_mgr == 'apt'
   tags: [docker]
 
 - name: Add Docker repository
@@ -42,10 +39,9 @@
       ansible_distribution_release }} stable
     mode: "0644"
   become: true
-  when: ansible_facts.pkg_mgr == 'apt'
   tags: [docker]
 
-- name: Install Docker Engine (APT)
+- name: Install Docker Engine
   become: true
   ansible.builtin.package:
     name:
@@ -54,19 +50,8 @@
       - containerd.io
       - docker-buildx-plugin
       - docker-compose-plugin
+    update_cache: true
     state: latest
-  when: ansible_facts.pkg_mgr == 'apt'
-  tags: [docker]
-
-- name: Install Docker Engine
-  become: true
-  ansible.builtin.package:
-    name:
-      - docker
-      - docker-compose
-      - docker-buildx
-    state: latest
-  when: ansible_facts.pkg_mgr == 'pacman'
   tags: [docker]
 
 - name: Enable Docker service

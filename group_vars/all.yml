@@ -6,7 +6,5 @@ email: 35557567+KarelSchwab@users.noreply.github.com
 default_editor: nvim
 development_folder: "{{ ansible_env.HOME }}/Development"
 
-# Controls whether the Omarchy templates should be included
-omarchy: false
 karelschwab: true
 planner: true
