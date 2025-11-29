@@ -23,7 +23,8 @@
     "cmake@latest",
     "gcc@latest",
     "unzip@latest",
-    "docker@latest"
+    "docker@latest",
+    "libwebp@latest"
   ],
   "shell": {
     "init_hook": [
