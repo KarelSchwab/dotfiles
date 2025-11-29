@@ -15,3 +15,9 @@ devbox shell
 ```bash
 stow --dotfiles */ -t $HOME -v
 ```
+
+# Install global packages
+
+```bash
+devbox global install
+```
