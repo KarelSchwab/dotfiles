@@ -1,0 +1,53 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "stow@latest": {
+      "last_modified": "2025-11-23T21:50:36Z",
+      "resolved": "github:NixOS/nixpkgs/ee09932cedcef15aaf476f9343d1dea2cb77e261#stow",
+      "source": "devbox-search",
+      "version": "2.4.1",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/abnyksf7n75n6ffkbcqdycscxqpcmdy6-stow-2.4.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/abnyksf7n75n6ffkbcqdycscxqpcmdy6-stow-2.4.1"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/8wyzq23ipajblys5jm5xm0pv3r1xdn84-stow-2.4.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/8wyzq23ipajblys5jm5xm0pv3r1xdn84-stow-2.4.1"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/39gmkhw3w71kvra49gp1hnylipn2lyrw-stow-2.4.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/39gmkhw3w71kvra49gp1hnylipn2lyrw-stow-2.4.1"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/nypnihnx1scav643hf3hs7dzfyriqlr9-stow-2.4.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/nypnihnx1scav643hf3hs7dzfyriqlr9-stow-2.4.1"
+        }
+      }
+    }
+  }
+}
