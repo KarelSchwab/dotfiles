@@ -21,3 +21,19 @@ stow --dotfiles -t "$HOME" devbox bash git scripts tmux -v
 ```bash
 devbox global install
 ```
+
+# Clone nvim
+
+```bash
+git submodule update --init --recursive
+```
+
+# Login to gh
+```bash
+gh auth login
+```
+
+# Stow nvim
+```bash
+stow --dotfiles -t "$HOME" nvim -v
+```

@@ -23,7 +23,8 @@
     "gcc@latest",
     "unzip@latest",
     "libwebp@latest",
-    "starship@latest"
+    "starship@latest",
+    "nodejs@latest"
   ],
   "shell": {
     "init_hook": [
