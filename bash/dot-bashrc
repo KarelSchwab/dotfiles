@@ -115,8 +115,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export PATH="$PATH:$HOME/.local/bin"
-# BEGIN ANSIBLE: fzf key bindings
+
 if command -v fzf &> /dev/null; then
   if [[ -f /usr/share/fzf/key-bindings.bash ]]; then
       source /usr/share/fzf/key-bindings.bash
@@ -125,15 +124,15 @@ if command -v fzf &> /dev/null; then
       source /usr/share/doc/fzf/examples/key-bindings.bash
   fi
 fi
-# END ANSIBLE: fzf key bindings
+
+eval "$(devbox global shellenv --init-hook)"
+
 eval "$(starship init bash)"
-# BEGIN ANSIBLE: nvm
+
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# END ANSIBLE: nvm
 
-. "$HOME/.local/bin/env"
 eval "$(uv generate-shell-completion bash)"
 eval "$(direnv hook bash)"
 
-eval "$(devbox global shellenv --init-hook)"
+export PATH="$PATH:$HOME/.local/bin"

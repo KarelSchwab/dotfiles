@@ -13,7 +13,7 @@ devbox shell
 # Run stow
 
 ```bash
-stow --dotfiles */ -t $HOME -v
+stow --dotfiles -t "$HOME" devbox bash git scripts tmux -v
 ```
 
 # Install global packages

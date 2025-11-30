@@ -5,7 +5,6 @@
     "direnv@latest",
     "git@latest",
     "tmux@latest",
-    "ansible@latest",
     "fzf@latest",
     "bash-completion@latest",
     "lua@latest",
@@ -23,8 +22,8 @@
     "cmake@latest",
     "gcc@latest",
     "unzip@latest",
-    "docker@latest",
-    "libwebp@latest"
+    "libwebp@latest",
+    "starship@latest"
   ],
   "shell": {
     "init_hook": [
