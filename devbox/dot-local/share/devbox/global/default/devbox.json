@@ -24,7 +24,8 @@
     "unzip@latest",
     "libwebp@latest",
     "starship@latest",
-    "nodejs@latest"
+    "nodejs@latest",
+    "gnumake@latest"
   ],
   "shell": {
     "init_hook": [
