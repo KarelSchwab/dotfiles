@@ -116,15 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if command -v fzf &> /dev/null; then
-  if [[ -f /usr/share/fzf/key-bindings.bash ]]; then
-      source /usr/share/fzf/key-bindings.bash
-  fi
-  if [[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
-      source /usr/share/doc/fzf/examples/key-bindings.bash
-  fi
-fi
-
 eval "$(devbox global shellenv --init-hook)"
 
 eval "$(starship init bash)"
@@ -134,5 +125,15 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 eval "$(uv generate-shell-completion bash)"
 eval "$(direnv hook bash)"
+
+if command -v fzf &> /dev/null; then
+  fzf_share="$(dirname "$(realpath "$(command -v fzf)")")/../share/fzf"
+  if [[ -f "${fzf_share}/key-bindings.bash" ]]; then
+    source "${fzf_share}/key-bindings.bash"
+  fi
+  if [[ -f "${fzf_share}/completion.bash" ]]; then
+    source "${fzf_share}/completion.bash"
+  fi
+fi
 
 export PATH="$PATH:$HOME/.local/bin"
