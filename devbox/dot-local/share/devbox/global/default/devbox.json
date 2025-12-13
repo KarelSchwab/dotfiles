@@ -7,7 +7,6 @@
     "tmux@latest",
     "fzf@latest",
     "bash-completion@latest",
-    "lua@latest",
     "luarocks@latest",
     "curl@latest",
     "wget@latest",
@@ -26,7 +25,9 @@
     "starship@latest",
     "nodejs@latest",
     "gnumake@latest",
-    "codex@latest"
+    "opencode@latest",
+    "tree-sitter@latest",
+    "lua@latest"
   ],
   "shell": {
     "init_hook": [
