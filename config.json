@@ -1,0 +1,42 @@
+{
+    "binDir": "$HOME/.local/bin",
+    "dotfiles": [
+        {
+            "name": "devbox",
+            "source": "files/devbox/devbox.json",
+            "destination": "$HOME/.local/share/devbox/global/default/devbox.json"
+        },
+        {
+            "name": "bash",
+            "source": "files/bash/bashrc",
+            "destination": "$HOME/.bashrc"
+        },
+        {
+            "name": "git",
+            "source": "files/git/gitconfig",
+            "destination": "$HOME/.gitconfig"
+        },
+        {
+            "name": "tmux",
+            "source": "files/tmux/tmux.conf",
+            "destination": "$HOME/.config/tmux/tmux.conf"
+        },
+        {
+            "name": "scripts",
+            "source": "files/scripts/s",
+            "destination": "$HOME/.local/bin/s"
+        }
+    ],
+    "repos": [
+        {
+            "name": "nvim",
+            "url": "git@github.com:KarelSchwab/nvim.git",
+            "destination": "$HOME/.config/nvim"
+        },
+        {
+            "name": "tpm",
+            "url": "git@github.com:tmux-plugins/tpm.git",
+            "destination": "$HOME/.tmux/plugins/tpm"
+        }
+    ]
+}

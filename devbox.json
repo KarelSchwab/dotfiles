@@ -1,0 +1,17 @@
+{
+  "$schema":  "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
+  "packages": ["go@1.25.4"],
+  "shell": {
+    "scripts": {
+      "build": [
+        "go build -o dotfiles main.go"
+      ],
+      "stow": [
+        "go run main.go stow"
+      ],
+      "unstow": [
+        "go run main.go unstow"
+      ]
+    }
+  }
+}
