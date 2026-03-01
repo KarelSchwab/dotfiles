@@ -1,0 +1,8 @@
+[user]
+        email = 35557567+KarelSchwab@users.noreply.github.com
+        name = Karel Schwab
+[init]
+        defaultBranch = main
+[core]
+        editor = nvim
+
