@@ -1,0 +1,9 @@
+#!/bin/bash
+
+BRANCH=$1
+
+git worktree add ../$BRANCH $BRANCH
+
+ln -s $(pwd)/.envrc $(pwd)/../$BRANCH/.envrc
+ln -s $(pwd)/.env $(pwd)/../$BRANCH/.env
+ln -s $(pwd)/.tags $(pwd)/../$BRANCH/.tags
