@@ -1,0 +1,39 @@
+[[dotfiles]]
+name = "devbox"
+source = "<TODO>/devbox/devbox.json"
+destination = "$HOME/.local/share/devbox/global/default/devbox.json"
+
+[[dotfiles]]
+name = "bash"
+source = "<TODO>/bash/bashrc"
+destination = "$HOME/.bashrc"
+
+[[dotfiles]]
+name = "git"
+source = "<TODO>/git/gitconfig"
+destination = "$HOME/.gitconfig"
+
+[[dotfiles]]
+name = "tmux"
+source = "<TODO>/tmux/tmux.conf"
+destination = "$HOME/.config/tmux/tmux.conf"
+
+[[dotfiles]]
+name = "tmux-session"
+source = "<TODO>/scripts/s"
+destination = "$HOME/.local/bin/s"
+
+[[dotfiles]]
+name = "opencode"
+source = "<TODO>/opencode/opencode.json"
+destination = "$HOME/.config/opencode/opencode.json"
+
+[[repos]]
+name = "nvim"
+url = "git@github.com:KarelSchwab/nvim.git"
+destination = "$HOME/.config/nvim"
+
+[[repos]]
+name = "tpm"
+url = "git@github.com:tmux-plugins/tpm.git"
+destination = "$HOME/.tmux/plugins/tpm"
