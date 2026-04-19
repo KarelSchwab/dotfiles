@@ -23,11 +23,11 @@
     "unzip@latest",
     "libwebp@latest",
     "starship@latest",
-    "nodejs@latest",
     "gnumake@latest",
     "opencode@latest",
     "tree-sitter@latest",
-    "lua@latest"
+    "lua@latest",
+    "nodejs@latest"
   ],
   "shell": {
     "init_hook": [

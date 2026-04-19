@@ -137,5 +137,5 @@ if command -v fzf &> /dev/null; then
 fi
 
 export GOPATH="$HOME/go"
-export PATH="$PATH:$HOME/.local/bin:$GOPATH/bin"
+export PATH="$PATH:$HOME/.local/bin:$GOPATH/bin:$HOME/.npm-global/bin"
 export EDITOR=nvim
